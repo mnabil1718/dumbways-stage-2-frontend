@@ -3,7 +3,7 @@ const APIURL = 'https://api.open-meteo.com/v1/forecast';
 const SEARCHAPIURL = 'https://geocoding-api.open-meteo.com/v1/search';
 
 export async function getWeather(lat: number, lon: number): Promise<number> {
-  const url = `${APIURL}?latitude=${lat}&longitudes=${lon}&current_weather=true`;
+  const url = `${APIURL}?latitude=${lat}&longitude=${lon}&current_weather=true`;
 
   const res = await fetch(url);
   if (!res.ok) throw new Error("cannot fetch weather data");
