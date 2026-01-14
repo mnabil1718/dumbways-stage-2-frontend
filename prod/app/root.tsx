@@ -39,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="w-full min-h-screen flex flex-col">
         <AuthProvider>
           <Navbar />
-          <main className="flex flex-1 max-w-3xl w-full mx-auto p-3">
+          <main className="flex flex-col flex-1 max-w-3xl w-full mx-auto p-3">
             {children}
           </main>
           <Footer />

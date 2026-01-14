@@ -23,46 +23,52 @@ export function Navbar() {
   }
 
   return (
-    <nav className="bg-white w-full p-5 sticky top-0 z-10 flex justify-center border-b">
-      <NavigationMenu>
-        <NavigationMenuList className="flex-wrap">
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <a href="/">Home</a>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <a href="/about">About</a>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
-            {user ? (
-              <Button
-                variant={"outline"}
-                className="cursor-pointer"
-                onClick={handleLogout}
+    <nav className="bg-white w-full p-5 sticky top-0 z-10 border-b">
+      <div className="flex items-center justify-between max-w-md mx-auto">
+        <NavigationMenu>
+          <NavigationMenuList className="flex-wrap">
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
               >
-                Logout
-              </Button>
-            ) : (
-              <a href="/login">
-                <Button variant={"outline"} className="cursor-pointer">
-                  Login
+                <a href="/">Home</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <a href="/about">About</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <NavigationMenu>
+          <NavigationMenuList className="flex-wrap">
+            <NavigationMenuItem>
+              {user ? (
+                <Button
+                  variant={"outline"}
+                  className="cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  Logout
                 </Button>
-              </a>
-            )}
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+              ) : (
+                <a href="/login">
+                  <Button variant={"outline"} className="cursor-pointer">
+                    Login
+                  </Button>
+                </a>
+              )}
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
     </nav>
   );
 }
