@@ -21,7 +21,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // first time check local storage
   useEffect(() => {
     const str = localStorage.getItem(STORAGE_KEY);
-    setUser(user);
+    if (str) {
+      setUser(JSON.parse(str));
+    }
   }, []);
 
   const login = (user: User) => {

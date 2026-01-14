@@ -39,6 +39,7 @@ export function LoginForm() {
         type={"submit"}
         className="w-full cursor-pointer"
         onClick={handleLogin}
+        disabled={!email}
       >
         Login
       </Button>

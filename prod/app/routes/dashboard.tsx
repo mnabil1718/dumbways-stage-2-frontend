@@ -7,7 +7,10 @@ export default function Dashboard() {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) navigate("/login");
-  }, []);
-  return <div>Dash</div>;
+    if (!user) {
+      navigate("/login", { replace: true });
+    }
+  }, [user, navigate]);
+
+  return <div>Dashboard</div>;
 }
