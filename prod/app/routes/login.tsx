@@ -14,7 +14,7 @@ export default function Login() {
   }, [user, navigate]);
 
   return (
-    <div className="flex flex-1">
+    <div className="flex-1 flex flex-col justify-center">
       <div className="max-w-sm mx-auto border rounded-md py-5 px-10">
         <LoginForm />
       </div>
