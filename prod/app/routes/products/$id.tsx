@@ -24,17 +24,21 @@ export default function Product({ loaderData }: Route.ComponentProps) {
     return <p className="text-sm text-muted-foreground">No product found</p>;
 
   const addToCart = () => {
-    add({
+    const success = add({
       id: Date.now(),
       product,
       qty,
     });
-    setBtnText("Added Successfully");
+
+    if (!success) {
+      setBtnText("Cannot add to cart");
+    } else {
+      setBtnText("Added Successfully");
+    }
+
     setTimeout(() => {
       setBtnText("Add to cart");
     }, 2000);
-
-    toast("Product added to cart");
   };
 
   return (

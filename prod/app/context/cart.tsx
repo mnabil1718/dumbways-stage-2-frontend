@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 import type { Product } from "~/service/products";
 
 export type CartItem = {
@@ -10,7 +11,7 @@ export type CartItem = {
 type CartContextPayload = {
   cart: CartItem[];
   getTotal: () => number;
-  add: (item: CartItem) => void;
+  add: (item: CartItem) => boolean;
   remove: (id: number) => void;
   updateQty: (id: number, qty: number) => void;
 };
@@ -38,16 +39,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cart]);
 
   const add = (item: CartItem) => {
-    setCart((prev) => {
-      const existed = prev.find((c) => c.product.id === item.product.id);
+    const existed = cart.find((c) => c.product.id === item.product.id);
 
-      if (existed) {
-        console.warn("Item already exists in cart");
-        return prev;
-      }
+    if (existed) {
+      toast.error("Item already exists in cart");
+      return false;
+    }
 
-      return [...prev, item];
-    });
+    setCart((prev) => [...prev, item]);
+    toast("Product added to cart");
+    return true;
   };
 
   const remove = (id: number) => {
