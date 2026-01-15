@@ -1,0 +1,130 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #000 !important;
+  background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 520px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.add-container {
+  display: flex;
+  margin-bottom: 20px;}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-input {
+  margin-right: 4px;
+  flex-grow: 1;
+}
+
+.add-button::disabled {
+  opacity: 0.5;
+}
+
+.delete-button {
+  padding: 5px;
+  font-size: 12px;
+  background-color: oklch(93.6% 0.032 17.717);
+  color: oklch(57.7% 0.245 27.325);
+}
+
+.rename-button {
+  padding: 5px;
+  font-size: 12px;
+  background-color: oklch(96.8% 0.007 247.896);
+  color: oklch(44.6% 0.043 257.281);
+}
+
+.todo-item {
+  display: flex;
+  justify-content: between;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 2px;
+    transition: color 0.15s ease;
+}
+
+.todo-item-input {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.todo-item-action {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.todo-item:hover {
+  background-color: oklch(96.8% 0.007 247.896);
+}
+
+.todo-item:hover .todo-item-action {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
