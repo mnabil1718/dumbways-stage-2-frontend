@@ -1,6 +1,4 @@
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-import { Ghost, SheetIcon, ShoppingCart, X } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { useCart } from "../context/cart";
@@ -14,11 +12,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
-import { Quantity } from "./qty";
 import { CartItem } from "./cart-item";
 
 export function Cart() {
-  const { cart } = useCart();
+  const { cart, getTotal } = useCart();
 
   return (
     <Sheet>
@@ -29,7 +26,7 @@ export function Cart() {
               className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums absolute -right-1 -top-2"
               variant="destructive"
             >
-              1
+              {cart.length}
             </Badge>
           )}
           <Button className="cursor-pointer">
@@ -58,9 +55,13 @@ export function Cart() {
           })}
         </div>
         <SheetFooter>
-          <Button type="submit">Save changes</Button>
+          <div className="flex justify-between font-medium">
+            <span>Subtotal</span>
+            <span>$ {getTotal()} USD</span>
+          </div>
+          <Button type="submit">Checkout</Button>
           <SheetClose asChild>
-            <Button variant="outline">Close</Button>
+            <Button variant="outline">Cancel</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

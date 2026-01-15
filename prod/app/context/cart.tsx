@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { Product } from "~/service/products";
 
 export type CartItem = {
@@ -9,23 +9,45 @@ export type CartItem = {
 
 type CartContextPayload = {
   cart: CartItem[];
-  getTotal: () => void;
+  getTotal: () => number;
   add: (item: CartItem) => void;
   remove: (id: number) => void;
   updateQty: (id: number, qty: number) => void;
 };
+
+const STORAGE_KEY = "cart:product";
 
 export const CartContext = createContext<CartContextPayload | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
+  useEffect(() => {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) {
+        setCart(JSON.parse(data));
+      }
+    } catch (err) {
+      console.error("Failed to parse cart from localStorage", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  }, [cart]);
+
   const add = (item: CartItem) => {
-    const existed = cart.find((c) => c.product.id === item.product.id);
+    setCart((prev) => {
+      const existed = prev.find((c) => c.product.id === item.product.id);
 
-    if (existed) throw new Error("item already exists");
+      if (existed) {
+        console.warn("Item already exists in cart");
+        return prev;
+      }
 
-    setCart((prev) => [...prev, item]);
+      return [...prev, item];
+    });
   };
 
   const remove = (id: number) => {
@@ -33,16 +55,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const getTotal = () => {
-    return cart.reduce((sum, curr) => sum + curr.product.price, 0);
+    return cart.reduce((sum, curr) => sum + curr.product.price * curr.qty, 0);
   };
 
   const updateQty = (id: number, qty: number) => {
-    const item = cart.find((c) => c.id === id);
-    if (!item) throw new Error("no cart item found");
-
-    const updated = cart.map((c) => (c.id === id ? { ...c, qty } : c));
-
-    setCart(updated);
+    setCart((prev) => prev.map((c) => (c.id === id ? { ...c, qty } : c)));
   };
 
   return (
