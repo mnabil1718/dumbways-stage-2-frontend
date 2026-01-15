@@ -1,6 +1,7 @@
 import { ProductCard } from "~/components/product-card";
 import type { Route } from "./+types/home";
 import { getProducts } from "~/service/products";
+import { Button } from "~/components/ui/button";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,9 +24,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <>
       <header className="w-full flex flex-col items-center my-10 text-center">
         <h1 className="text-4xl mb-1">mini.store</h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground mb-7">
           Mini product catalog using fakestoreapi.
         </p>
+        <a href="/products">
+          <Button className="bg-green-700 cursor-pointer">
+            Explore catalog
+          </Button>
+        </a>
       </header>
 
       <section>
@@ -34,7 +40,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         {error && <div className="text-red-500">Error: {error}</div>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-          {products?.map((product) => (
+          {products?.slice(0, 4).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

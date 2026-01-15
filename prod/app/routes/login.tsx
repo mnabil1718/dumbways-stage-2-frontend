@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "~/components/context/auth";
+import { useAuth } from "~/context/auth";
 import { LoginForm } from "~/components/login-form";
 
 export default function Login() {

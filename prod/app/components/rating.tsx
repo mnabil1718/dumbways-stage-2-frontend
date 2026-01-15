@@ -5,7 +5,9 @@ export type Rating = {
   count: number;
 };
 
-export function Rating({ rating }: { rating: Rating }) {
+export function Rating({ rating }: { rating?: Rating }) {
+  if (!rating)
+    return <span className="text-sm text-muted-foreground">No Rating</span>;
   return (
     <div className="flex items-center gap-0.5">
       <span className="mr-1 text-sm font-medium text-muted-foreground">

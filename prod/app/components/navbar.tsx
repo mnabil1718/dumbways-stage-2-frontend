@@ -1,7 +1,3 @@
-"use client";
-
-import * as React from "react";
-
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,8 +6,9 @@ import {
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
 import { Button } from "./ui/button";
-import { useAuth } from "./context/auth";
+import { useAuth } from "../context/auth";
 import { useNavigate } from "react-router";
+import { Cart } from "./cart";
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -24,7 +21,7 @@ export function Navbar() {
 
   return (
     <nav className="bg-white w-full p-5 sticky top-0 z-10 border-b">
-      <div className="flex items-center justify-between max-w-md mx-auto">
+      <div className="flex items-center justify-between max-w-3xl mx-auto">
         <NavigationMenu>
           <NavigationMenuList className="flex-wrap">
             <NavigationMenuItem>
@@ -42,6 +39,15 @@ export function Navbar() {
                 className={navigationMenuTriggerStyle()}
               >
                 <a href="/about">About</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <a href="/products">Products</a>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -66,29 +72,12 @@ export function Navbar() {
                 </a>
               )}
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Cart />
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
     </nav>
-  );
-}
-
-function ListItem({
-  title,
-  children,
-  href,
-  ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
-  return (
-    <li {...props}>
-      <NavigationMenuLink asChild>
-        <a href={href}>
-          <div className="text-sm leading-none font-medium">{title}</div>
-          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
   );
 }

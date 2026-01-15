@@ -7,12 +7,14 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import type { Route } from "./+types/root";
 import "./app.css";
+import type { Route } from "./+types/root";
 import { Navbar } from "./components/navbar";
 import { Footer } from "./components/footer";
 import { LoaderCircle } from "lucide-react";
-import { AuthContext, AuthProvider } from "./components/context/auth";
+import { AuthProvider } from "./context/auth";
+import { Toaster } from "sonner";
+import { CartProvider } from "./context/cart";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -27,6 +29,14 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export function AppProviders({ children }: { children: React.ReactNode }) {
+  return (
+    <AuthProvider>
+      <CartProvider>{children}</CartProvider>
+    </AuthProvider>
+  );
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -37,13 +47,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="w-full min-h-screen flex flex-col">
-        <AuthProvider>
+        <AppProviders>
           <Navbar />
           <main className="flex flex-col flex-1 max-w-3xl w-full mx-auto p-3">
             {children}
           </main>
           <Footer />
-        </AuthProvider>
+          <Toaster theme="dark" duration={2000} />
+        </AppProviders>
         <ScrollRestoration />
         <Scripts />
       </body>

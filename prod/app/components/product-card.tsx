@@ -35,7 +35,7 @@ export function ProductCard({ product }: { product: Product }) {
         <Rating rating={product.rating} />
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <a href="#" className="w-full">
+        <a href={`/products/${product.id}`} className="w-full">
           <Button type="button" className="w-full bg-green-700 cursor-pointer">
             Shop Now
           </Button>

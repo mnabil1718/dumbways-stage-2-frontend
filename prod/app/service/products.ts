@@ -17,6 +17,11 @@ export interface GetProductsResponse {
     error: string | null; // Changed to string for easier serialization
 }
 
+export interface GetProductResponse {
+    product: Product | null;
+    error: string | null;
+}
+
 export const getProducts = async (): Promise<GetProductsResponse> => {
     try {
         const url = `${BASE_PRODUCT_URL}/products`;
@@ -29,3 +34,17 @@ export const getProducts = async (): Promise<GetProductsResponse> => {
         };
     }
 };
+
+
+export const getProductById = async (id: number): Promise<GetProductResponse> => {
+try {
+    const url = `${BASE_PRODUCT_URL}/products/${id}`;
+    const res = await axios.get<Product>(url);
+    return { product: res.data, error: null };
+} catch (error: any) {
+    return { 
+            product: null, 
+            error: error.message || "failed to fetch data" 
+        };
+}
+}
